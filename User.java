@@ -19,14 +19,12 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public void getListaChat(String idUser) {
-		for(Chat ichat : listaChat) {
-			for(User user : chat.listaUser){
-				if(user.getId().equals(idUser)) {
-					System.out.println(ichat.getId());
-				}
-			}
-		}
+
+	public ArrayList<Chat> getListaChat() {
+		return listaChat;
+	}
+	public void setListaChat(ArrayList<Chat> listaChat) {
+		this.listaChat = listaChat;
 	}
 	public void addChat(Chat chat){
 		this.listaChat.add(chat);
@@ -36,6 +34,7 @@ public class User {
 		return id;
 	}
 	public void sendMsg(String idChat, String text) {
-
+		Msg msg = new Msg(idChat, text);
+		chat.deliverZap(msg);
 	}
 }
