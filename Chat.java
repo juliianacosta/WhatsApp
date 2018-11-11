@@ -12,9 +12,9 @@ public class Chat {
 		this.id = id;
 		this.user = user;
 	}
-	
+
 	public Chat() {
-		
+
 	}
 
 	public String getId() {
@@ -30,9 +30,9 @@ public class Chat {
 	public void setListaInbox(ArrayList<Inbox> listaInbox) {
 		this.listaInbox = listaInbox;
 	}
-	
+
 	public void qtdUsers(String chatId){
-		
+
 		for(User user : listaUser) {
 			for(Chat iChat : user.listaChat) {
 				if(iChat.getId().equals(chatId)) {
@@ -41,12 +41,36 @@ public class Chat {
 			}
 		}
 	}
-	
+
+	public void getListaChat(String idUser) {
+		for(User user : listaUser) {
+			if(user.getId().equals(idUser)) {
+				for(Chat chat: user.listaChat){
+					System.out.println(user.getId());
+				}
+			}
+		}
+	}
+
 	public String getMsgs(String userId) {
 
 		return userId;
 	}
 	public Msg deliverZap(Msg msg) {
+		boolean ver = false;
+		for(User user : listaUser) {
+			if(user.getId().equals(msg.userId)) {
+				ver = true;
+			}
+		}
+		if(ver == true) {
+			Inbox inbox;
+			for (User user : listaUser) {
+				inbox = new Inbox(user, msg);
+				
+			}
+		}
+		
 		return msg;
 
 	}
@@ -67,13 +91,20 @@ public class Chat {
 		}
 	}
 
+
+
 	public void rmUserChat(String userId, String chatId) {
+
 		for(User user : listaUser) {
-			for(Chat chat : user.listaChat) {
-				if(chat.getId().equals(chatId) && user.getId().equals(userId)) {
-					this.user.listaChat.remove(user);
+			if(user.getId().equals(userId)) {
+				for(Chat chat: user.listaChat){
+					if(chat.getId().equals(chatId))
+					listaUser.remove(user);
+					user.listaChat.remove(chat);
+					System.out.println("Done");
 				}
 			}
 		}
 	}
 }
+
