@@ -16,29 +16,30 @@ public class WhatsappService {
 		switch(comandos[0]) {
 		case "addUser":
 			this.addUser(comandos[1]);
-			System.out.println("Done");
 			break;
 		case "allUsers":
 			this.listUser();
 			break;
 		case "newChat":
 			this.createChat(comandos[1], comandos[2]);
-			System.out.println("Done");
 			break;
 		case "chats":
-			user.getListaChat(comandos[1]);
-			System.out.println("Done");
+			chat.getListaChat(comandos[1]);
 			break;
 		case "invite":
-			this.addByInvite(comandos[1], comandos[2], comandos[3]);
-			System.out.println("Done");
+			this.addByInvite(comandos[1], comandos[2], comandos[3]);		
 			break;
 		case "usesr":
 			chat.qtdUsers(comandos[1]);
 			break;
 		case "leave":
 			chat.rmUserChat(comandos[1], comandos[2]);
-			System.out.println("Done");
+			break;
+		case "zap":
+			chat.rmUserChat(comandos[1], comandos[2]);
+			break;
+		case "notify":
+			chat.rmUserChat(comandos[1], comandos[2]);
 			break;
 		}	
 
@@ -58,6 +59,7 @@ public class WhatsappService {
 					chat.addUserChat(user);
 					user.addChat(chat);
 					listaChat.add(chat);
+					System.out.println("Done");
 				}
 			}
 		}
@@ -73,6 +75,7 @@ public class WhatsappService {
 		if(ver == false) {
 			User user = new User(idUser);
 			listaUser.add(user);
+			System.out.println("Done");
 		}else {
 			System.out.println("Usuario ja existente!");
 		}
@@ -89,15 +92,19 @@ public class WhatsappService {
 			if(user.getId().equals(guessUserId)) {
 				for(Chat chat : user.listaChat) {
 					if(chat.getId().equals(chatId)) {
-						User newUser = new User(invitedUserId);
-						chat.addUserChat(newUser);						
+						for(User ivtuser: listaUser) {
+							if(ivtuser.getId().equals(invitedUserId)) {
+								chat.addUserChat(ivtuser);	
+								System.out.println("Done");
+							}
+						}
 					}else {
-						System.out.println("Usuario n„o petence ao grupo!");
+						System.out.println("Usuario n√£o petence ao grupo!");
 					}
 				}
 
 			}else {
-				System.out.println("Usu·rio nao cadastrado");
+				System.out.println("Usu√°rio nao cadastrado");
 			}
 		}
 	}
